@@ -3,7 +3,7 @@
 #let fontSerif = ("Noto Serif", "Noto Serif CJK JP")
 #let fontSan = ("Noto Sans", "Noto Sans CJK JP")
 
-#import "@preview/tenv:0.1.1": parse_dotenv
+#import "@preview/tenv:0.1.2": parse_dotenv
 #let env = parse_dotenv(read(".env"))
 
 #let project(week: -1, subtitle: "", authors: (), date: none, body) = {
