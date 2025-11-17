@@ -113,20 +113,6 @@ void search_bst_parent(Node **parent, Node **found, int d) {
   }
 }
 
-/* Node *search_bst_ptr(Node *root, int d) { */
-/*   if (root != NULL) { */
-/*     if (root->value == d) { */
-/*       return root; */
-/*     } else if (root->value < d) { */
-/*       return search_bst_ptr(root->right, d); */
-/*     } else { */
-/*       return search_bst_ptr(root->left, d); */
-/*     } */
-/*   } else { */
-/*     return NULL; */
-/*   } */
-/* } */
-
 Node *min_bst_ptr(Node *n) {
   if (n != NULL) {
     Node *sub = min_bst_ptr(n->left);
@@ -144,13 +130,8 @@ Node *min_bst_ptr(Node *n) {
 enum LR { LEFT, RIGHT };
 
 void delete_bst_node(Node **root, Node *parent, Node *n, enum LR lr) {
-  printf("delete_bst_node\n");
-
   if (n->left == NULL && n->right == NULL) {
     // NOTE: 削除対象が木全体の葉である場合
-
-    printf(" delete_bst_node frees leaf: %d, ptr: %p\n", n->value, n);
-
     free(n);
 
     if (parent != NULL) {
@@ -166,10 +147,6 @@ void delete_bst_node(Node **root, Node *parent, Node *n, enum LR lr) {
     }
   } else if (n->left != NULL && n->right == NULL) {
     // NOTE: 削除対象の子が1つ(左のみ)である場合
-
-    printf(" delete_bst_node frees node: %d, left child: %d, ptr: %p\n",
-           n->value, n->left->value, n);
-
     if (lr == LEFT) {
       parent->left = n->left;
       free(n);
@@ -179,10 +156,6 @@ void delete_bst_node(Node **root, Node *parent, Node *n, enum LR lr) {
     }
   } else if (n->left == NULL && n->right != NULL) {
     // NOTE: 削除対象の子が1つ(右のみ)である場合
-
-    printf(" delete_bst_node frees node: %d, right child: %d, ptr: %p\n",
-           n->value, n->right->value, n);
-
     if (lr == LEFT) {
       parent->left = n->right;
       free(n);
@@ -202,8 +175,6 @@ void delete_bst_node(Node **root, Node *parent, Node *n, enum LR lr) {
       rlr = LEFT;
     }
 
-    printf(" delete_bst_node swaps (n->value: %d) and (rmin->value: %d)\n",
-           n->value, rmin->value);
     int tmp = n->value;
     n->value = rmin->value;
     rmin->value = tmp;
@@ -230,26 +201,6 @@ void delete_bst(Node **root, int d) {
       } else {
         delete_bst_node(root, parent, n, lr);
         return;
-        /* if (n->left == NULL || n->right == NULL) { */
-        /*   // NOTE: 削除対象の節の子が1つ以下の場合 */
-        /*   delete_subtree(parent, n, lr); */
-        /* } else { */
-        /*   // NOTE: 削除対象の節の子が2つの場合 */
-        /*   Node *rparent = NULL; */
-        /*   Node *rmin = n->right; */
-        /*   enum LR rlr = RIGHT; */
-        /**/
-        /*   while (rmin->left != NULL) { */
-        /*     rparent = rmin; */
-        /*     rmin = rmin->left; */
-        /*     rlr = LEFT; */
-        /*   } */
-        /**/
-        /*   n->value = rmin->value; */
-        /*   rmin->value = d; */
-        /**/
-        /*   delete_subtree(rparent, rmin, rlr); */
-        /* } */
       }
     }
   } else {
@@ -257,67 +208,12 @@ void delete_bst(Node **root, int d) {
   }
 }
 
-/* void delete_bst(Node **root, int d) { */
-/*   if (root != NULL && *root != NULL) { */
-/*     Node *n = NULL; */
-/*     Node *found = NULL; */
-/*     search_bst_parent(&n, &found, d); */
-/**/
-/*     if (n != NULL && found != NULL) { */
-/*       // NOTE: 木の根でない通常の節が削除対象だった場合 */
-/*       if (found->left != NULL && found->right != NULL) { */
-/**/
-/*       } else if (found->left != NULL && found->right == NULL) { */
-/*         // NOTE: 削除対象の節に子が1つのみいる場合 */
-/*         free(found); */
-/**/
-/*         if (found->left != NULL) { */
-/*           found = found->left; */
-/*         } else { */
-/*           found = found->right; */
-/*         } */
-/*       } else if (found->left == NULL && found->right != NULL) { */
-/*         // NOTE: 削除対象の節に子が1つのみいる場合 */
-/*         Node *child; */
-/*         if (found->left != NULL) { */
-/**/
-/*           child = found->left; */
-/*         } else { */
-/*           child = found->right; */
-/*         } */
-/**/
-/*         free(found); */
-/**/
-/*       } else { */
-/**/
-/*         free(found); */
-/*       } */
-/*     } else if (n == NULL && found != NULL) { */
-/*       // NOTE: 木全体の根が削除対象だった場合 */
-/*     } */
-/**/
-/*     if (n != NULL) { */
-/*       if (n->left == NULL && n->right == NULL) { */
-/*         free(n); */
-/*       } else if (n->left != NULL && n->right == NULL) { */
-/*       } */
-/*     } else { */
-/*       return; */
-/*     } */
-/*   } else { */
-/*     return; // nothing to do */
-/*   } */
-/* } */
-
 // NOTE: 通りがけ順で出力する本体
 void inorder_subtree(Node *n) {
-  printf("inorder_subtree() called\n");
   if (n != NULL) {
     inorder_subtree(n->left);
     printf("%d ", n->value);
     inorder_subtree(n->right);
-  } else {
-    printf("NULL ");
   }
 }
 
@@ -325,9 +221,7 @@ void inorder_subtree(Node *n) {
 // NOTE:
 // 通りがけ順での出力を与えられたノードから呼び出すだけ。
 void inorder(Node *root) {
-  printf("inorder called\n");
   printf("IN: ");
-
   inorder_subtree(root);
   printf("\n");
 }

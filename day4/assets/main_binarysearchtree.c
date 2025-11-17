@@ -19,10 +19,7 @@ int main(void) {
   printf("search_bst 7: %d\n", search_bst(root, 7));
   printf("min_bst: %d\n", min_bst(root));
 
-  printf("before delete_bst(), *root: %p\n", root);
   delete_bst(&root, 10);
-
-  printf("after delete_bst(), *root: %p\n", root);
 
   inorder(root);
 
