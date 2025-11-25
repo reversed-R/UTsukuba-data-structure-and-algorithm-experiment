@@ -31,8 +31,7 @@ int min_bst(Node *root) {
 
     return res;
   } else {
-    fprintf(stderr, "Queue NULL pointer dereference!!\n");
-    exit(EXIT_FAILURE);
+    return -1;
   }
 }
 
@@ -52,7 +51,9 @@ bool search_bst(Node *root, int d) {
 
 void insert_bst(Node **root, int d) {
   if (root != NULL && *root != NULL) {
-    if ((*root)->value < d) {
+    if ((*root)->value == d) {
+      return; // nothing to do
+    } else if ((*root)->value < d) {
       if ((*root)->right != NULL) {
         insert_bst(&(*root)->right, d);
       } else {
@@ -83,47 +84,8 @@ void insert_bst(Node **root, int d) {
 
     *root = new;
   } else {
-    fprintf(stderr, "Queue NULL pointer dereference!!\n");
+    fprintf(stderr, "Binary Search Tree NULL pointer dereference!!\n");
     exit(EXIT_FAILURE);
-  }
-}
-
-void search_bst_parent(Node **parent, Node **found, int d) {
-  if (parent != NULL && *parent != NULL) {
-    if ((*parent)->value == d) {
-      *found = *parent;
-      *parent = NULL;
-      return;
-    }
-
-    if ((*parent)->left != NULL && (*parent)->left->value == d) {
-      *found = (*parent)->left;
-    } else if ((*parent)->right != NULL && (*parent)->right->value == d) {
-      *found = (*parent)->right;
-    } else if ((*parent)->value > d) {
-      *parent = (*parent)->left;
-      search_bst_parent(parent, found, d);
-    } else {
-      *parent = (*parent)->right;
-      search_bst_parent(parent, found, d);
-    }
-  } else {
-    parent = NULL;
-    found = NULL;
-  }
-}
-
-Node *min_bst_ptr(Node *n) {
-  if (n != NULL) {
-    Node *sub = min_bst_ptr(n->left);
-
-    if (sub != NULL) {
-      return sub;
-    } else {
-      return n;
-    }
-  } else {
-    return NULL;
   }
 }
 

@@ -1,0 +1,14 @@
+{
+  "name": "mermaid-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": ". ./convert_images.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.4.0"
+  }
+}

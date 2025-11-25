@@ -8,3 +8,4 @@
 *.out
 *.o
 *.zip
+/node_modules

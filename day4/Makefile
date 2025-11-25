@@ -2,7 +2,7 @@ COMPILE=typst
 TARGET=repo
 ROOT=..
 
-CLASSNO=1
+CLASSNO=4
 ZIP=zip
 
 build: $(TARGET).typ ../template.typ ../bxbibwrite.typ
@@ -10,5 +10,8 @@ build: $(TARGET).typ ../template.typ ../bxbibwrite.typ
 
 zip: ./assets
 	$(ZIP) -r class$(CLASSNO).zip ./assets -i "*.c" "*.h" "*.pdf" "*Makefile"
+
+image:
+	. ./convert_image.sh
 
 .PHONY: build zip

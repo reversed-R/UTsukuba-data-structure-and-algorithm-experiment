@@ -1,6 +1,6 @@
 #import "../template.typ": *
 #import "../bxbibwrite.typ": *
-#import "@preview/tenv:0.1.1": parse_dotenv
+#import "@preview/tenv:0.1.2": parse_dotenv
 #show: use-bib-item-ref
 
 #let env = parse_dotenv(read("../.env"))
